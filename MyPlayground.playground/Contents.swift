@@ -50,6 +50,24 @@ if let r1 = reading1,
 } else {
     let errorString = "Instrument reported s reading that was nil."
 }
+for (space, name) in nameByParkingSpace {
+    let permit = "Name \(name): Space \(space)"
+    print(permit)
+}
+enum PieType: Int {
+    case apple = 0
+    case cherry
+    case pecan
+}
 
+let favoritePie = PieType.apple
 
-
+let name: String
+switch favoritePie {
+case .apple:
+    name = "Apple"
+case .cherry:
+    name = "Cherry"
+case .pecan:
+    name = "Pecan"
+}
