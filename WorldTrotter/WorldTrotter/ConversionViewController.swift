@@ -53,13 +53,20 @@ class ConversionViewController: UIViewController, UITextFieldDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)	
         let date = Date()
         let calendar = Calendar.current
         let hour = calendar.component(.hour, from: date)
         if hour >= 6 && hour <= 18 {
-            self.view.backgroundColor = UIColor.yellow
+            let redRand = CGFloat(Int(arc4random_uniform(128)) + 128) / 256
+            let greenRand = CGFloat(Int(arc4random_uniform(128)) + 128) / 256
+            let blueRand = CGFloat(Int(arc4random_uniform(128)) + 128) / 256
+            self.view.backgroundColor = UIColor(red:redRand,green: greenRand, blue: blueRand, alpha: 1.0)
         } else {
-            self.view.backgroundColor = UIColor.brown
+            let redRand = CGFloat(Int(arc4random_uniform(128))) / 256
+            let greenRand = CGFloat(Int(arc4random_uniform(128))) / 256
+            let blueRand = CGFloat(Int(arc4random_uniform(128))) / 256
+            self.view.backgroundColor = UIColor(red:redRand,green: greenRand, blue: blueRand, alpha: 1.0)
         }
     }
     let numberFormatter: NumberFormatter = {
