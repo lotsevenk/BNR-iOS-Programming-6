@@ -47,8 +47,6 @@ class ConversionViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("ConversionViewController loaded its view.")
-        
         updateCelsiusLabel()
     }
     
@@ -57,7 +55,7 @@ class ConversionViewController: UIViewController, UITextFieldDelegate {
         let date = Date()
         let calendar = Calendar.current
         let hour = calendar.component(.hour, from: date)
-        if hour >= 6 && hour <= 18 {
+        if hour >= 7 && hour <= 18 {
             let redRand = CGFloat(Int(arc4random_uniform(128)) + 128) / 256
             let greenRand = CGFloat(Int(arc4random_uniform(128)) + 128) / 256
             let blueRand = CGFloat(Int(arc4random_uniform(128)) + 128) / 256
