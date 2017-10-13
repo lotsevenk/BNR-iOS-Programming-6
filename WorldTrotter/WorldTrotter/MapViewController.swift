@@ -9,13 +9,16 @@
 import UIKit
 import MapKit
 import CoreLocation 
-
+struct pinInfo {
+    var location: CLLocation
+    var description: String
+}
 class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate	 {
     var locationManager: CLLocationManager!
     var mapView: MKMapView!
-    let locationsOfInterest = [(39.8665640, -75.3888540),
-                               (40.613177, -74.290972),
-                               (43.879102, -103.459067)]
+    let locationsOfInterest = [pinInfo(location: CLLocation(latitude:39.866564, longitude: -75.388854),description:  "Brookhaven"),
+                               pinInfo(location: CLLocation(latitude:40.613177, longitude: -74.290972), description: "Rahway Hospital"),
+                               pinInfo(location: CLLocation(latitude:43.879102, longitude: -103.459067),description: "Mount Rushmore")]
     var currentLOI = 0
     override func loadView() {
         // Create a map view
@@ -42,9 +45,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         topConstraint.isActive = true
         leadingConstraint.isActive = true
         trailingConstraint.isActive = true
-        let currentLocationButton = UIButton(type: UIButtonType.system)
+        let currentLocationButton = UIButton(type: UIButtonType.system) as UIButton
         currentLocationButton.backgroundColor = UIColor.yellow.withAlphaComponent(0.5)
-        currentLocationButton.setTitle("Show Current Location", for: UIControlState.normal)
+        currentLocationButton.setTitle("Show Next Location", for: UIControlState.normal)
         currentLocationButton.layer.borderWidth = 0.5
         currentLocationButton.layer.borderColor = UIColor.black.cgColor
         currentLocationButton.addTarget(self, action: #selector(MapViewController.showLocation(_:)), for: .touchUpInside)
@@ -54,6 +57,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let clCenter = currentLocationButton.centerXAnchor.constraint(equalTo: margins.centerXAnchor)
         clTopConstraint.isActive = true
         clCenter.isActive = true
+
+        
     }
     
     override func viewDidLoad() {
@@ -73,9 +78,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
     }
     @objc func showLocation(_ buttonCS: UIControlState) {
-        print("Pressed Button.")
-        determineCurrentLocation()
-        let lat = locationsOfInterest[currentLOI].0
+        currentLOI += 1
+        if currentLOI > locationsOfInterest.count - 1 {
+            currentLOI = 0
+        }
+        showCurrentLOI(currentLOI)
     }
     func determineCurrentLocation()
     {
